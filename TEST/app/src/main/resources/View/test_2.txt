@@ -1,0 +1,40 @@
+사용 DB : oracle
+
+-- Company 테이블 생성
+CREATE TABLE Company (
+    team_id NUMBER PRIMARY KEY,
+    team_name VARCHAR2(50) NOT NULL,
+    parent_team_id NUMBER,
+    team_level NUMBER,
+    CONSTRAINT fk_parent FOREIGN KEY (parent_team_id) REFERENCES Company(team_id)
+);
+
+-- team_id 자동 증가 시퀀스 생성
+CREATE SEQUENCE team_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE;
+
+-- team_id 자동 설정 트리거 생성
+CREATE OR REPLACE TRIGGER trg_team_id
+BEFORE INSERT ON Company
+FOR EACH ROW
+BEGIN
+    :NEW.team_id := team_seq.NEXTVAL;
+END;
+/
+
+
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('대표이사', NULL, 1);
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('경영관리', 1, 2);
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('영업본부', 1, 2);
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('영업 1팀', 3, 3);
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('영업 2팀', 3, 3);
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('솔루션사업부', 1, 2);
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('프로젝트 수행 팀', 6, 3);
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('연구소', 1, 2);
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('연구소 1', 8, 3);
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('엔진 개발', 9, 4);
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('연구소 2', 8, 3);
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('솔루션 개발', 11, 4);
+INSERT INTO Company (team_name, parent_team_id, team_level) VALUES ('시스템 개발', 11, 4);

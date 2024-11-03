@@ -1,0 +1,8 @@
+SELECT LPAD(' ', LEVEL * 2, ' ') || team_name AS TEAM_NAME,
+       team_id,
+       parent_team_id,
+       team_level
+FROM Company
+START WITH parent_team_id IS NULL
+CONNECT BY PRIOR team_id = parent_team_id
+ORDER SIBLINGS BY team_id;
