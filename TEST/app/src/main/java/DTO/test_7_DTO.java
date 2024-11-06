@@ -1,18 +1,22 @@
 package DTO;
 
-public class test_7_DTO {
+public class test_7_DTO_v2 {
     private int score;
     private int turns;
     private int ties;
     private int strikes;
+    private int outCount;
+    private boolean[] bases;
     private boolean gameOver;
 
-    public test_7_DTO() {
-        score = 0;
-        turns = 0;
-        ties = 0;
-        strikes = 0;
-        gameOver = false;
+    public test_7_DTO_v2() {
+        this.score = 0;
+        this.turns = 0;
+        this.ties = 0;
+        this.strikes = 0;
+        this.outCount = 0;
+        this.gameOver = false;
+        this.bases = new boolean[3];
     }
 
     public int getScore() {
@@ -47,6 +51,14 @@ public class test_7_DTO {
         this.strikes = strikes;
     }
 
+    public int getOutCount() {
+        return outCount;
+    }
+
+    public void setOutCount(int outCount) {
+        this.outCount = outCount;
+    }
+
     public boolean isGameOver() {
         return gameOver;
     }
@@ -55,7 +67,16 @@ public class test_7_DTO {
         this.gameOver = gameOver;
     }
 
+    public boolean[] getBases() {
+        return bases;
+    }
+
+    public void resetBases() {
+        this.bases = new boolean[3];
+    }
+
     public double getWinningPercentage() {
         return turns == 0 ? 0 : (double) score / turns * 100;
     }
 }
+
